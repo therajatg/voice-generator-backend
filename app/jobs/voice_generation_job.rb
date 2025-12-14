@@ -12,6 +12,7 @@ class VoiceGenerationJob < ApplicationJob
     # Generate audio
     elevenlabs_service = ElevenlabsService.new
     audio_data = elevenlabs_service.text_to_speech(voice_generation.text)
+    # Note that here the background worker waits for the above API call to complete, no matter how long it takes.
 
     #upload_to_s3
     filename = "voice_#{voice_generation.id}_#{Time.current.to_i}.mp3"

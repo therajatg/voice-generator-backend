@@ -6,23 +6,41 @@ default: &default
   max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  host: "localhost"
-  database: <%= ENV['DB_NAME'] %>
-  username: <%= ENV['DB_USER'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  port: <%= ENV.fetch('DB_PORT', 5432) %>
-
+  primary:
+    <<: *default
+    host: "localhost"
+    database: <%= ENV['DB_NAME'] %>
+    username: <%= ENV['DB_USER'] %>
+    password: <%= ENV['DB_PASSWORD'] %>
+    port: <%= ENV.fetch('DB_PORT', 5432) %>
+  queue:
+    <<: *default
+    host: "localhost"
+    database: <%= ENV['DB_NAME_QUEUE'] %>
+    username: <%= ENV['DB_USER'] %>
+    password: <%= ENV['DB_PASSWORD'] %>
+    port: <%= ENV.fetch('DB_PORT', 5432) %>
+    migration_paths: db/queue_migrate
 # test:
 #   <<: *default
 #   database: voice_generator_backend_test
 
 production:
-  <<: *default
-  host: <%= ENV['DB_HOST'] %>
-  database: <%= ENV['DB_NAME'] %>
-  username: <%= ENV['DB_USER'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  port: <%= ENV['DB_PORT'] %>
-  sslmode: require
-  # Only connect if SSL encryption is available. If not, fail. that is if https and not http.
+  primary:
+    <<: *default
+    host: <%= ENV['DB_HOST'] %>
+    database: <%= ENV['DB_NAME'] %>
+    username: <%= ENV['DB_USER'] %>
+    password: <%= ENV['DB_PASSWORD'] %>
+    port: <%= ENV['DB_PORT'] %>
+    sslmode: require
+    # Only connect if SSL encryption is available. If not, fail. that is if https and not http.
+  queue:
+    <<: *default
+    host: <%= ENV['DB_HOST'] %>
+    database: <%= ENV['DB_NAME_QUEUE'] %>
+    username: <%= ENV['DB_USER'] %>
+    password: <%= ENV['DB_PASSWORD'] %>
+    port: <%= ENV['DB_PORT'] %>
+    sslmode: require
+    migration_paths: db/queue_migrate
