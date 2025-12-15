@@ -2,15 +2,25 @@ class ElevenlabsService
     include HTTParty
     base_uri 'https://api.elevenlabs.io/v1'
 
+    # Disable SSL verification for development
+    # default_options.update(verify: false) if Rails.env.development?
+
+    # if Rails.env.development?
+    # default_options.update(
+    #   ssl: { verify: false }
+    # )
+    # end
+
     def initialize
         @api_key = ENV['ELEVENLABS_API_KEY']
+        puts @api_key
         raise 'ELEVENLABS_API_KEY not set' if @api_key.blank?
     end
 
     def text_to_speech(text, voice_id: 'EXAVITQu4vr4xnSDxMaL')
         response = self.class.post("/text-to-speech/#{voice_id}", headers: headers, body: {
         text: text,
-        model_id: 'eleven_monolingual_v1',
+        model_id: 'eleven_turbo_v2_5',
         voice_settings: {
           stability: 0.5,
           similarity_boost: 0.75

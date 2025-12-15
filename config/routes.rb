@@ -6,5 +6,4 @@ Rails.application.routes.draw do
   namespace :api do
       resources :voice_generations, only: [:create, :show, :index]
     end
-  end
 end

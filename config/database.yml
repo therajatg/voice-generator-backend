@@ -20,7 +20,7 @@ development:
     username: <%= ENV['DB_USER'] %>
     password: <%= ENV['DB_PASSWORD'] %>
     port: <%= ENV.fetch('DB_PORT', 5432) %>
-    migration_paths: db/queue_migrate
+    migrations_paths: db/queue_migrate
 # test:
 #   <<: *default
 #   database: voice_generator_backend_test
@@ -43,4 +43,4 @@ production:
     password: <%= ENV['DB_PASSWORD'] %>
     port: <%= ENV['DB_PORT'] %>
     sslmode: require
-    migration_paths: db/queue_migrate
+    migrations_paths: db/queue_migrate
