@@ -1,6 +1,6 @@
-class Api::VoiceGenerationsController < ApplicationController
+class Api::VoiceGenerationsController < ActionController::API
     # Skip CSRF token verification for API requests
-    skip_before_action :verify_authenticity_token
+    # skip_before_action :verify_authenticity_token
 
     def create
         voice_generation = VoiceGeneration.new(voice_generation_params)
