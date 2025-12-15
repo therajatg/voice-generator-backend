@@ -7,6 +7,7 @@ class VoiceGenerationJob < ApplicationJob
     voice_generation = VoiceGeneration.find(voice_generation_id)
 
     # Mark as processing
+    puts "processing"
     voice_generation.update!(status: 'processing')
 
     # Generate audio
@@ -27,7 +28,7 @@ class VoiceGenerationJob < ApplicationJob
       Rails.logger.info "Voice generation #{voice_generation_id} completed successfully"
     rescue => e
     Rails.logger.error "Voice generation #{voice_generation_id} failed: #{e.message}"
-    voice_generation.update!(status: 'failed', error_message: error)
+    voice_generation.update!(status: 'failed', error_message: e.message)
     raise e
   end
 end
