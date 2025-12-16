@@ -2,6 +2,24 @@
 
 # If running the rails server then create or migrate existing database
 if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
+  # Ensure we have a secret_key_base available before attempting to boot Rails.
+  # Accept either a direct SECRET_KEY_BASE env var or a valid RAILS_MASTER_KEY that
+  # can decrypt `config/credentials.yml.enc` and contains `secret_key_base`.
+  if [ -z "$SECRET_KEY_BASE" ]; then
+    if [ -z "$RAILS_MASTER_KEY" ]; then
+      echo "ERROR: Missing SECRET_KEY_BASE and RAILS_MASTER_KEY. Set one of them when running the container."
+      echo "Example: -e SECRET_KEY_BASE=$(./bin/rails secret)   OR   -e RAILS_MASTER_KEY=<value_from_config/master.key>"
+      exit 1
+    else
+      # Attempt to show credentials and check for secret_key_base
+      if ! ./bin/rails credentials:show 2>/dev/null | grep -q "secret_key_base"; then
+        echo "ERROR: RAILS_MASTER_KEY present but credentials don't contain 'secret_key_base' OR decryption failed."
+        echo "Check that the provided RAILS_MASTER_KEY matches the key used to encrypt config/credentials.yml.enc, or set SECRET_KEY_BASE directly."
+        exit 1
+      fi
+    fi
+  fi
+
   ./bin/rails db:prepare
 fi
 

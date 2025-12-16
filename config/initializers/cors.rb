@@ -1,6 +1,6 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins '*'  # For simplicity, allow all. Change to your Vercel URL in production
+    origins 'https://voice-generator-frontend.vercel.app', 'http://localhost:5173' 
     
     resource '*',
       headers: :any,

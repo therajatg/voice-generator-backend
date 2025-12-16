@@ -319,10 +319,6 @@ GEM
       ffi (~> 1.12)
       logger
     securerandom (0.4.1)
-    solid_cache (1.0.10)
-      activejob (>= 7.2)
-      activerecord (>= 7.2)
-      railties (>= 7.2)
     solid_queue (1.2.4)
       activejob (>= 7.1)
       activerecord (>= 7.1)
@@ -385,7 +381,6 @@ DEPENDENCIES
   rack-cors
   rails (~> 8.1.1)
   rubocop-rails-omakase
-  solid_cache
   solid_queue
   thruster
   tzinfo-data
