@@ -12,7 +12,7 @@ class VoiceGenerationJobTest < ActiveJob::TestCase
 
     ElevenlabsService.stub :new, mock_elevenlabs do
       S3UploadService.stub :new, mock_upload do
-        VoiceGenerationJob.perform_now(voice_generation.id) 
+        VoiceGenerationJob.perform_now(voice_generation.id)
       end
     end
 
@@ -22,7 +22,7 @@ class VoiceGenerationJobTest < ActiveJob::TestCase
   end
 
   test "marks as failed on error" do
-    voice_generation = voice_generations(:two)
+    voice_generation = voice_generations(:three)  # Different fixture!
     
     mock_elevenlabs = Minitest::Mock.new
     mock_elevenlabs.expect :text_to_speech, ->(_) { raise "API Error" }, [String]

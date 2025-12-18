@@ -4,7 +4,7 @@ class Api::VoiceGenerationsControllerTest < ActionDispatch::IntegrationTest
   test "should create voice generation" do
     assert_difference("VoiceGeneration.count") do
       post api_voice_generations_url,
-        params: {voice_generation: { text: "Hello world" } }
+        params: {voice_generation: { text: "Hello world" } },
         as: :json
     end
 
@@ -15,8 +15,8 @@ class Api::VoiceGenerationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create without text" do
     assert_no_difference("VoiceGeneration.count") do
-      post api_voice_generation_url,
-        params: {voice_generation: {text: ""}}
+      post api_voice_generations_url,
+        params: {voice_generation: {text: ""}},
         as: :json
     end
 
@@ -33,7 +33,7 @@ class Api::VoiceGenerationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should list voice generations" do
-    get api_voice_generation_url, as: :json
+    get api_voice_generations_url, as: :json
 
     assert_response :success
     json = JSON.parse(response.body)

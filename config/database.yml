@@ -29,14 +29,14 @@ test:
     database: <%= ENV['DB_NAME_TEST'] %>
     username: <%= ENV['DB_USER'] %>
     password: <%= ENV['DB_PASSWORD'] %>
-    port: <%= ENV['DB_PORT'] %>
+    port: "5432"
   queue:
     <<: *default
     host: "localhost"
     database: <%= ENV['DB_NAME_QUEUE_TEST'] %>
     username: <%= ENV['DB_USER'] %>
     password: <%= ENV['DB_PASSWORD'] %>
-    port: <%= ENV['DB_PORT'] %>
+    port: "5432"
     migrations_paths: db/queue_migrate
 
 production:

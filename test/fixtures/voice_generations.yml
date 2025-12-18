@@ -24,3 +24,8 @@ two:
   text: "Another test"
   status: "pending"
   created_at: <%= 1.day.ago %>
+
+three:
+  text: "Test for failure"
+  status: "pending"
+  created_at: <%= 1.hour.ago %>
